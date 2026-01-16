@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>X1 Studio — MTA Skins</title>
+  <meta name="description" content="مكتبة سكنات MTA كاملة - استعرض جميع السكنات من ID 0 إلى 312 مع معاينة ومعلومات الموديل" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .search-box {
+      margin: 32px auto;
+      max-width: 500px;
+      display: flex;
+      gap: 12px;
+      padding: 0 20px;
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 14px 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--glass);
+      color: var(--ink);
+      font-size: 1.1rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255, 26, 26, 0.2);
+    }
+
+    .search-box button {
+      padding: 14px 24px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, var(--accent), #ff4d4d);
+      color: #fff;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 6px 20px rgba(255, 26, 26, 0.35);
+    }
+
+    .search-box button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 32px rgba(255, 26, 26, 0.5);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 24px;
+      padding: 0 28px 40px;
+    }
+
+    .skin-card {
+      background: var(--glass-strong);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      text-align: center;
+      transition: 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow);
+    }
+
+    .skin-card:hover {
+      transform: translateY(-10px) scale(1.04);
+      box-shadow: 0 0 0 2px var(--accent), var(--shadow-glow);
+      border-color: var(--accent);
+    }
+
+    .skin-card img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      image-rendering: crisp-edges;
+      transition: opacity 0.3s;
+    }
+
+    .skin-card.unavailable img {
+      opacity: 0.55;
+      filter: grayscale(60%);
+    }
+
+    .skin-card.unavailable .id::after {
+      content: "غير متوفر";
+      display: block;
+      font-size: 0.75rem;
+      color: #ff6666;
+      margin-top: 4px;
+      font-weight: bold;
+    }
+
+    .skin-card .id {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .skin-card .model {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .skin-card .special {
+      display: inline-block;
+      background: linear-gradient(135deg, #ffd700, #ffaa00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+      font-size: 0.9rem;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 16px;
+        padding: 0 16px;
+      }
+      .search-box {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="dot"></span>
+      <strong>X1 Studio</strong>
+    </div>
+
+    <nav>
+      <a href="index.html" class="nav-link">
+        <i class="fas fa-home"></i>
+        الرئيسية
+      </a>
+      <a href="skins.html" class="nav-link active">
+        <i class="fas fa-shirt"></i>
+        MTA Skins
+      </a>
+      <a href="team.html" class="nav-link">
+        <i class="fas fa-users"></i> الفريق
+      </a>
+      <a href="social.html" class="nav-link">
+        <i class="fas fa-envelope"></i>
+        التواصل
+      </a>
+    </nav>
+
+    <div class="nav-foot">
+      © <span id="year"></span> X1 Studio<br>
+      جميع الحقوق محفوظة
+    </div>
+  </aside>
+
+  <header class="header">
+    <button class="menu-btn" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
+    <h1>مكتبة سكنات MTA</h1>
+    <div class="logo-frame">
+      <img src="hammo.png" alt="X1 Studio Logo" />
+    </div>
+  </header>
+
+  <main>
+
+    <div class="search-box">
+      <input type="number" id="skinId" placeholder="أدخل رقم السكن (0 - 312)" min="0" max="312" />
+      <button onclick="showSkin()">عرض السكن</button>
+    </div>
+
+    <div class="grid" id="skinsGrid"></div>
+
+  </main>
+
+  <footer class="footer">
+    <span>Made with ♥ لعشاق MTA</span>
+    <span>Version 2.0</span>
+  </footer>
+
+</div>
+
+<script>
+  const skinsGrid = document.getElementById('skinsGrid');
+
+  const skinModelNames = [
+    "cj","truth","maccer","cdeput","sfpdm1","bb","wfycrp","male01","wmycd2","bfori",
+    "bfost","vbfycrp","bfyri","bfyst","bmori","bmost","bmyap","bmybu","bmybe","bmydj",
+    "bmyri","bmycr","bmyst","wmybmx","wbdyg1","wbdyg2","wmybp","wmycon","bmydrug","wmydrug",
+    "hmydrug","dwfolc","dwmolc1","dwmolc2","dwmylc1","hmogar","wmygol1","wmygol2","hfori","hfost",
+    "hfyri","hfyst","suzie","hmori","hmost","hmybe","hmyri","hmycr","hmyst","omokung",
+    "wmymech","bmymoun","wmymoun","ofori","ofost","ofyri","ofyst","omori","omost","omyri",
+    "omyst","wmyplt","wmopj","bfypro","hfypro","vwmyap","bmypol1","bmypol2","wmoprea","sbfyst",
+    "wmosci","wmysgrd","swmyhp1","swmyhp2","","swfopro","wfystew","swmotr1","wmotr1","bmotr1",
+    "vbmybox","vwmybox","vhmyelv","vbmyelv","vimyelv","vwfypro","vhfyst","vwfyst1","wfori","wfost",
+    "wfyjg","wfyri","wfyro","wfyst","wmori","wmost","wmyjg","wmylg","wmyri","wmyro",
+    "wmycr","wmyst","ballas1","ballas2","ballas3","fam1","fam2","fam3","lsv1","lsv2",
+    "lsv3","maffa","maffb","mafboss","vla1","vla2","vla3","triada","triadb","lvpdm1","triboss",
+    "dnb1","dnb2","dnb3","vmaff1","vmaff2","vmaff3","vmaff4","dnmylc","dnfolc1","dnfolc2",
+    "dnfylc","dnmolc1","dnmolc2","sbmotr2","swmotr2","sbmytr3","swmotr3","wfybe","bfybe","hfybe",
+    "sofybu","sbmyst","sbmycr","bmycg","wfycrk","hmycm","wmybu","bfybu","","wfybu","dwfylc1",
+    "wfypro","wmyconb","wmybe","wmypizz","bmobar","cwfyhb","cwmofr","cwmohb1","cwmohb2","cwmyfr",
+    "cwmyhb1","bmyboun","wmyboun","wmomib","bmymib","wmybell","bmochil","sofyri","somyst","vwmybjd",
+    "vwfycrp","sfr1","sfr2","sfr3","bmybar","wmybar","wfysex","wmyammo","bmytatt","vwmycr",
+    "vbmocd","vbmycr","vhmycr","sbmyri","somyri","somybu","swmyst","wmyva","copgrl3","gungrl3",
+    "mecgrl3","nurgrl3","crogrl3","gangrl3","cwfofr","cwfohb","cwfyfr1","cwfyfr2","cwmyhb2","dwfylc2",
+    "dwmylc2","omykara","wmykara","wfyburg","vwmycd","vhfypro","","omonood","omoboat","wfyclot","vwmotr1",
+    "vwmotr2","vwfywai","sbfori","swfyri","wmyclot","sbfost","sbfyri","sbmocd","sbmori","sbmost",
+    "shmycr","sofori","sofost","sofyst","somobu","somori","somost","swmotr5","swfori","swfost",
+    "swfyst","swmocd","swmori","swmost","shfypro","sbfypro","swmotr4","swmyri","smyst","smyst2",
+    "sfypro","vbfyst2","vbfypro","vhfyst3","bikera","bikerb","bmypimp","swmycr","wfylg","wmyva2",
+    "bmosec","bikdrug","wmych","sbfystr","swfystr","heck1","heck2","bmycon","wmycd1","bmocd",
+    "vwfywa2","wmoice","tenpen","pulaski","hern","dwayne","smoke","sweet","ryder","forelli",
+    "mediatr","laemt1","lvemt1","sfemt1","lafd1","lvfd1","sffd1","lapd1","sfpd1","lvpd1",
+    "csher","lapdm1","swat","fbi","army","dsher","somyap","rose","paul","cesar",
+    "ogloc","wuzimu","torino","jizzy","maddogg","cat","claude","ryder2","ryder3","emmet",
+    "andre","kendl","jethro","zero","tbone","sindaco","janitor","bbthin","smokev","psycho"
+  ];
+
+  const specialIDs = [1,2,3,4,5,6,8,42,65,86,119,265,266,267,268,269,270,271,272,273,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312];
+
+  for (let i = 0; i <= 312; i++) {
+    const card = document.createElement('div');
+    card.className = 'skin-card';
+
+    const img = document.createElement('img');
+    img.src = (i === 266) ? `${i}.png` : `${i}.jpg`;
+    img.alt = `Skin ID ${i}`;
+    img.loading = "lazy";
+
+    img.onerror = function() {
+      this.src = `https://via.placeholder.com/300x500/1a1a1a/555555?text=ID+${i}`;
+      this.style.opacity = "0.65";
+      card.classList.add('unavailable');
+    };
+
+    const idSpan = document.createElement('div');
+    idSpan.className = 'id';
+    idSpan.textContent = `ID: ${i}`;
+
+    const modelSpan = document.createElement('div');
+    modelSpan.className = 'model';
+    let model = skinModelNames[i] || "غير مستخدم";
+    if (model === "") model = "غير مستخدم / Mod Skin";
+    modelSpan.textContent = `الموديل: ${model}`;
+
+    card.appendChild(img);
+    card.appendChild(idSpan);
+    card.appendChild(modelSpan);
+
+    if (specialIDs.includes(i)) {
+      const special = document.createElement('div');
+      special.className = 'special';
+      special.textContent = 'Special Skin';
+      card.appendChild(special);
+    }
+
+    skinsGrid.appendChild(card);
+  }
+
+  function showSkin() {
+    const input = document.getElementById('skinId');
+    const id = parseInt(input.value.trim());
+
+    if (isNaN(id) || id < 0 || id > 312) {
+      alert('من فضلك أدخل رقم صحيح بين 0 و 312');
+      return;
+    }
+
+    const cards = document.querySelectorAll('.skin-card');
+    let found = false;
+
+    cards.forEach(card => {
+      const idText = card.querySelector('.id')?.textContent || '';
+      if (idText.includes(`ID: ${id}`)) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.style.boxShadow = '0 0 0 4px var(--accent), 0 0 30px var(--accent-glow)';
+        setTimeout(() => { card.style.boxShadow = ''; }, 2500);
+        found = true;
+      }
+    });
+
+    if (!found) {
+      alert('السكن غير موجود أو الصورة غير متوفرة.');
+    }
+  }
+
+  function toggleMenu() {
+    document.getElementById('sidebar').classList.toggle('open');
+  }
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
