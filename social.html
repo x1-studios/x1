@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>X1 Studio — التواصل</title>
+  <meta name="description" content="تواصل مع X1 Studio - انضم لسيرفر الديسكورد، أرسل إيميل، اطلب سكن مخصص MTA" />
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+   
+    .container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .intro-text {
+      font-size: 1.3rem;
+      color: var(--muted);
+      margin-bottom: 32px;
+      line-height: 1.7;
+      max-width: 700px;
+    }
+
+    .discord-section {
+      margin: 40px 0;
+      text-align: center;
+    }
+
+    .btn-discord {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 36px;
+      font-size: 1.3rem;
+      font-weight: 800;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, #5865F2, #4752C4);
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(88, 101, 242, 0.4);
+      transition: var(--transition);
+      animation: pulse-glow 3s infinite ease-in-out;
+    }
+
+    .btn-discord:hover {
+      transform: translateY(-4px) scale(1.06);
+      box-shadow: 0 16px 40px rgba(88, 101, 242, 0.6), 0 0 30px rgba(255, 26, 26, 0.3);
+      background: linear-gradient(135deg, #4752C4, #5865F2);
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 8px 24px rgba(88, 101, 242, 0.4); }
+      50% { box-shadow: 0 12px 32px rgba(88, 101, 242, 0.55); }
+    }
+
+    .contact-box {
+      background: var(--glass-strong);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      max-width: 700px;
+      width: 100%;
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      margin: 20px 0 60px;
+    }
+
+    .contact-box h2 {
+      margin-top: 0;
+      font-size: 1.8rem;
+      color: var(--ink);
+    }
+
+    .contact-box p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--muted);
+      margin: 16px 0;
+    }
+
+    .contact-box strong {
+      color: var(--accent);
+    }
+
+    .email-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .email-link:hover {
+      text-decoration: underline;
+      color: var(--accent-glow);
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 30px 16px; }
+      .btn-discord { padding: 16px 32px; font-size: 1.2rem; }
+      .contact-box { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="dot"></span>
+      <strong>X1 Studio</strong>
+    </div>
+
+    <nav>
+      <a href="index.html" class="nav-link">
+        <i class="fas fa-home"></i>
+        الرئيسية
+      </a>
+      <a href="skins.html" class="nav-link">
+        <i class="fas fa-shirt"></i>
+        MTA Skins
+      </a>
+      <a href="team.html" class="nav-link">
+        <i class="fas fa-users"></i> الفريق
+      </a>
+      <a href="social.html" class="nav-link active">
+        <i class="fas fa-envelope"></i>
+        التواصل
+      </a>
+    </nav>
+
+    <div class="nav-foot">
+      © <span id="year"></span> X1 Studio<br>
+      جميع الحقوق محفوظة
+    </div>
+  </aside>
+
+  <header class="header">
+    <button class="menu-btn" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
+    <h1>التواصل مع X1 Studio</h1>
+    <div class="logo-frame">
+      <img src="hammo.png" alt="X1 Studio Logo" />
+    </div>
+  </header>
+
+  <main class="container">
+
+    <p class="intro-text">
+      مرحباً بك في قسم التواصل! سواء كنت عايز تنضم للمجتمع، تطلب سكن مخصص، أو عندك استفسار/اقتراح — إحنا هنا عشانك 24/7 🎨
+    </p>
+
+    <div class="discord-section">
+      <h2 style="margin-bottom: 20px; color: var(--ink);">انضم لسيرفر الديسكورد الخاص بنا</h2>
+      <a href="https://discord.gg/uBFvrwYEQa" target="_blank" rel="noopener noreferrer" class="btn-discord">
+        <i class="fab fa-discord"></i> دخول السيرفر الآن 🚀
+      </a>
+    </div>
+
+    <div class="contact-box">
+      <h2>تواصل مباشر مع الفريق</h2>
+      <p>
+        لو عندك أي سؤال، طلب تصميم سكن مخصص، تعديل على سكن موجود، أو اقتراح لتحسين الخدمة — اكتبلنا براحتك.
+      </p>
+      <p>
+        <strong>البريد الإلكتروني:</strong><br>
+        <a href="mailto:abdulrahmanahmed20011@gmail.com" class="email-link">abdulrahmanahmed20011@gmail.com</a>
+      </p>
+      <p>
+        <strong>أوقات الرد المتوقعة:</strong> خلال 24 ساعة (غالباً أسرع في أوقات الدوام)
+      </p>
+      <p>
+        فريق التصميم جاهز ينفذلك سكن احترافي يناسب شخصيتك داخل MTA — سواء عصابة، شرطة، VIP أو أي فكرة عندك.
+      </p>
+      <p style="margin-top: 32px; font-style: italic;">
+        وجودك وأفكارك تهمنا جدًا.. مستنيين رسالتك! ♥
+      </p>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <span>Made with ♥ لعشاق MTA</span>
+    <span>Version 2.0</span>
+  </footer>
+
+</div>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('sidebar').classList.toggle('open');
+  }
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
